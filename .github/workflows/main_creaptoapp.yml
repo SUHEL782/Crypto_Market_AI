@@ -1,4 +1,4 @@
-name: crypto market web to aws s3 bucket with python code
+name: Crypto Market Web to AWS S3 Bucket with Python Code
 
 on:
   push:
@@ -7,17 +7,20 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: Ubuntu 20.04.6
+    runs-on: ubuntu-latest
     steps:
+      # Step 1: Check out the repository code
       - name: Checkout
-        uses: actions/checkout@v1
+        uses: actions/checkout@v3
 
+      # Step 2: Configure AWS credentials
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      # Step 3: Sync files to S3
       - name: Sync to S3
-        run: aws s3 sync . webapplicationlaunch  --delete
+        run: aws s3 sync . s3://webapplicationlaunch --delete
