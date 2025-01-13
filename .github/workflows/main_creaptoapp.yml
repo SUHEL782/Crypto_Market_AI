@@ -1,4 +1,4 @@
-name: Deploy Crypto Market Web App to S3
+name: crypto market web to aws s3 bucket with python code
 
 on:
   push:
@@ -7,36 +7,17 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: Ubuntu 20.04.6
     steps:
-      # Step 1: Check out the repository code
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v1
 
-      # Step 2: Set up Python
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      # Step 3: Install dependencies
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      # Step 4: Configure AWS credentials
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Step 5: Run Python code (e.g., build static files or gather data)
-      - name: Run Python script
-        run: python script.py
-
-      # Step 6: Sync output files to the S3 bucket
       - name: Sync to S3
-        run: aws s3 sync ./output s3://staticwebhost11 --delete --exclude ".github/*" --exclude ".git/*"
+        run: aws s3 sync . webapplicationlaunch  --delete
