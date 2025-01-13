@@ -3,7 +3,7 @@ name: Crypto Market Web to AWS S3 Bucket with Python Code
 on:
   push:
     branches:
-      - main
+      - main 
 
 jobs:
   build-and-deploy:
